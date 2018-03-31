@@ -7,7 +7,7 @@ import java.util.BitSet;
   * Graph objects can be used to work with directed graphs.
   * They are internally represented using adjacency matrices.
   * @author Sophie Quigley
-  * @author PUT YOUR NAMES HERE
+  * @author Deborah, Louise
   * <BR>THE ONLY METHODS THAT SHOULD BE MODIFIED ARE:
   * <BR>Warshall2 and Warshall3 
   * 
@@ -307,15 +307,43 @@ public class Graph implements Cloneable {
     }
     
     /**
-     * Same as Warshall1 but with shortcircuiting
+     * Same as Warshall1 but with short circuiting
      */
     public void Warshall2() {
-    }
-    
+    	   int i, j, k;
+           for (k=0; k<vertices; k++){
+               for (i=0; i<vertices; i++){
+            		   for (j=0; j<vertices; j++){
+            			   if(edges[i][j] == 1){ //short circuiting 
+                    		   break;
+                    		 }
+            			   else if (edges[i][j]==0 && edges[i][k]==1 && edges[k][j]==1) {
+		                           edges[i][j] = 1;
+		                           totaledges++;
+		                           }
+            		   		}
+               		}
+           	}
+       }
+           
     /**
      * Same as Warshall2 but using BitSets for the matrix rows
      */
     public void Warshall3() {
+    	  int i, j, k;
+          for (k=0; k<vertices; k++){
+              for (i=0; i<vertices; i++){
+           		   for (j=0; j<vertices; j++){
+           			   if(edges[i][j] == 1){ //short circuiting 
+                   		   break;
+                   		 }
+           			   else if (edges[i][j]==0 && edges[i][k]==1 && edges[k][j]==1) {
+		                           edges[i][j] = 1;
+		                           totaledges++;
+		                           }
+           		   		}
+              		}
+          	}
     }
     
 }
