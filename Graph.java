@@ -7,7 +7,7 @@ import java.util.BitSet;
   * Graph objects can be used to work with directed graphs.
   * They are internally represented using adjacency matrices.
   * @author Sophie Quigley
-  * @author Deborah, Louise
+  * @author Deborah, Louise 
   * <BR>THE ONLY METHODS THAT SHOULD BE MODIFIED ARE:
   * <BR>Warshall2 and Warshall3 
   * 
@@ -312,12 +312,18 @@ public class Graph implements Cloneable {
     public void Warshall2() {
     	   int i, j, k;
            for (k=0; k<vertices; k++){
+        	/*   if(totaledges ==  Math.pow(vertices, 2)){//extra short circuiting 
+           		  break;
+           	  }*/
                for (i=0; i<vertices; i++){
+            	   if(edges[i][k] == 0){ //short circuiting 
+              		   continue;
+            	  }
             		   for (j=0; j<vertices; j++){
-            			   if(edges[i][j] == 1){ //short circuiting 
+            			/*   if(edges[i][j] == 1){ //short circuiting 
                     		   break;
-                    		 }
-            			   else if (edges[i][j]==0 && edges[i][k]==1 && edges[k][j]==1) {
+                    		 }*/
+            			   /*else */ if (edges[i][j]==0 && edges[i][k]==1 && edges[k][j]==1) {
 		                           edges[i][j] = 1;
 		                           totaledges++;
 		                           }
@@ -330,20 +336,30 @@ public class Graph implements Cloneable {
      * Same as Warshall2 but using BitSets for the matrix rows
      */
     public void Warshall3() {
+    	/*uses bitstrings to store each row of the adjacency matrix
+    	 * when a new graph is created the edges are stored both 
+    	 * in a 2D array of ints called Edges and in a 1D array of BitSets called bitsetrow. 
+    	 * As was described in class, in Warshall3, you should manipulate entire rows at a time.*/
     	  int i, j, k;
-          for (k=0; k<vertices; k++){
-              for (i=0; i<vertices; i++){
-           		   for (j=0; j<vertices; j++){
-           			   if(edges[i][j] == 1){ //short circuiting 
-                   		   break;
-                   		 }
-           			   else if (edges[i][j]==0 && edges[i][k]==1 && edges[k][j]==1) {
+    	BitSet result =  bitsetrow[0];
+    	//result.cardinality();
+    	System.out.println(result);
+        for (k=0; k<vertices; k++){
+            for (i=0; i<vertices; i++){
+         	   if(edges[i][k] == 0){ //short circuiting 
+           		   continue;
+         	  }
+         		   for (j=0; j<vertices; j++){
+         			/*   if(edges[i][j] == 1){ //short circuiting 
+                 		   break;
+                 		 }*/
+         			   /*else */ if (edges[i][j]==0 && edges[i][k]==1 && edges[k][j]==1) {
 		                           edges[i][j] = 1;
 		                           totaledges++;
 		                           }
-           		   		}
-              		}
-          	}
+         		   		}
+            		}
+        	}
     }
-    
+
 }
